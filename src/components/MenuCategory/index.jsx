@@ -5,7 +5,7 @@ import { products } from './Constains/index';
 
 function MenuCategory() {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const itemsToShow = 5;
+    const itemsToShow = 8;
 
     const hasNext = currentIndex + itemsToShow < products.length;
     const hasPrev = currentIndex > 0;
@@ -35,21 +35,18 @@ function MenuCategory() {
                     </button>
                 )}
                 <div className="overflow-hidden">
-                    <div className="grid grid-cols-5 gap-4 transition-all duration-500 p-1">
+                    <div className="grid grid-cols-8 gap-4 transition-all duration-500 p-1">
                         {products.slice(currentIndex, currentIndex + itemsToShow).map((product) => (
-                            <div
-                                key={product.id}
-                                className="group bg-white pb-4 rounded-md shadow-md hover:outline-none hover:ring-2 hover:ring-blue-500 transition-all"
-                            >
-                                <div className="relative w-full h-[150px] overflow-hidden rounded-tr-md rounded-tl-md">
+                            <div key={product.id}>
+                                <div className="relative w-full h-[100px] overflow-hidden rounded-[100%]">
                                     <img
                                         src={product.image}
                                         alt={product.name}
                                         className="w-full h-full object-cover transform transition-all duration-300 group-hover:scale-105"
                                     />
                                 </div>
-                                <h3 className="text-center mt-2 text-lg font-semibold">{product.name}</h3>
-                                <p className="text-center text-sm text-gray-600">{product.description}</p>
+                                <h3 className="text-center mt-2 text-sm font-semibold">{product.name}</h3>
+                                <p className="text-center text-[12px] text-gray-600">{product.description}</p>
                             </div>
                         ))}
                     </div>

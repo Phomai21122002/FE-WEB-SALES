@@ -16,7 +16,7 @@ function SliderImg() {
         setCurrentIndex(index);
     };
     return (
-        <div className="relative">
+        <div className="relative mt-[64px]">
             <img src={images[currentIndex]} alt="Slide" className="w-full h-[500px] object-cover" />
             <div className="absolute flex items-center bottom-4 left-1/2 transform -translate-x-1/2">
                 {images.map((_, index) => (
