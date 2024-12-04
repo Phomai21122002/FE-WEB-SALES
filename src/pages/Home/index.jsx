@@ -7,7 +7,7 @@ function Home() {
         <div className="max-w-[1100px] mx-auto px-8">
             <SliderImg />
             <MenuCategory />
-            <MenuProduct />
+            <MenuProduct title={'Tên Category'} />
         </div>
     );
 }
