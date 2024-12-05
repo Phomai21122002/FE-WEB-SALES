@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import Footer from '~/components/Footer';
 import Header from '~/components/Header/Header';
 
 function DefaultLayout({ children }) {
@@ -6,6 +7,7 @@ function DefaultLayout({ children }) {
         <div className="bg-gray-100">
             <Header />
             {children}
+            <Footer />
         </div>
     );
 }

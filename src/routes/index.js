@@ -1,6 +1,6 @@
 import config from '~/config';
-import { AuthLayout } from '~/layouts';
-import { Cart, Home, Login, Order, SignUp } from '~/pages';
+import { AdminLayout, AuthLayout } from '~/layouts';
+import { Cart, Home, Login, Order, Product, SignUp } from '~/pages';
 
 const publicRoutes = [
     { path: config.routes.login, component: Login, layout: AuthLayout },
@@ -13,4 +13,6 @@ const privateRoutes = [
     { path: config.routes.order, component: Order },
 ];
 
-export { publicRoutes, privateRoutes };
+const adminRoutes = [{ path: config.routes.admin, component: Product, layout: AdminLayout }];
+
+export { publicRoutes, privateRoutes, adminRoutes };
