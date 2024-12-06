@@ -1,3 +1,7 @@
+const routesAdmin = {
+    admin: '/admin',
+};
+
 const routes = {
     home: '/home',
     product: '/product/:id',
@@ -5,6 +9,7 @@ const routes = {
     order: '/order',
     login: '/login',
     signup: '/signup',
+    ...routesAdmin,
 };
 
 export default routes;

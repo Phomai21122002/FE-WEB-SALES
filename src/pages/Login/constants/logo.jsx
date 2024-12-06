@@ -16,3 +16,5 @@ export const loginLogoList = [
         logo: <Apple width={LOGO_SIZE} height={LOGO_SIZE} />,
     },
 ];
+
+export const role = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';

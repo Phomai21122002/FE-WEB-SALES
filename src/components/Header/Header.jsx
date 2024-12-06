@@ -4,13 +4,17 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
 import logoSale from '~/assets/images/Logo-sales.png';
 import { menuHeader } from './Constains';
+import { Link } from 'react-router-dom';
+import routes from '~/config/routes';
 
 const Header = () => {
     return (
         <div className="flex items-center justify-center fixed top-0 left-0 w-full z-50 bg-white shadow-md">
             <div className="flex items-center justify-between max-w-[1080px] w-full px-6 py-1">
                 <div className="flex items-center space-x-6">
-                    <img src={logoSale} alt="Logo" className="w-14 h-14 object-contain" />
+                    <Link to={routes.home}>
+                        <img src={logoSale} alt="Logo" className="w-14 h-14 object-contain cursor-pointer" />
+                    </Link>
                     <div className="flex items-center space-x-4 font-bold text-[12px] uppercase">
                         {menuHeader.map((item, index) => (
                             <div

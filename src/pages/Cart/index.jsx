@@ -5,7 +5,7 @@ import ProductCart from '~/components/ProductCart';
 function Cart() {
     return (
         <div className="max-w-[1100px] mx-auto py-8 mt-[64px]">
-            <BackgroundCart>
+            <BackgroundCart className={'items-center'}>
                 <input type="checkbox" className="w-4 h-4 mr-4 cursor-pointer" title="Chọn tất cả" />
                 <div className="flex-grow text-sm text-gray-900 font-medium">Sản phẩm</div>
                 <div className="w-32 text-center text-sm text-gray-500 font-medium">Đơn giá</div>
@@ -14,19 +14,19 @@ function Cart() {
                 <div className="w-32 text-center text-sm text-gray-500 font-medium">Thao tác</div>
             </BackgroundCart>
             <div className="flex flex-col items-center bg-white">
-                <BackgroundCart className="w-full justify-between">
+                <BackgroundCart className="w-full items-center justify-between">
                     <div className="flex items-center space-x-4">
                         <input type="checkbox" className="w-4 h-4 cursor-pointer" />
                         <span className="text-[16px] font-medium">Loại sản phẩm</span>
                     </div>
                 </BackgroundCart>
                 {[{ id: 1 }, { id: 2 }].map((item, index) => (
-                    <BackgroundCart key={index} className="w-full">
+                    <BackgroundCart key={index} className="w-full items-center">
                         <ProductCart product={item} />
                     </BackgroundCart>
                 ))}
             </div>
-            <BackgroundCart className="w-full justify-between mt-8 mb-12">
+            <BackgroundCart className="w-full items-center justify-between mt-8 mb-12">
                 <div className="flex items-center space-x-4">
                     <input type="checkbox" className="w-4 h-4 cursor-pointer" />
                     <span className="text-[16px] font-medium">Chọn tất cả (2 sản phẩm)</span>
