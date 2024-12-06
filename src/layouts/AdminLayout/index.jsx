@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
 import { useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import routes from '~/config/routes';
 import { useStorage } from '~/Contexts';
 import { role } from '~/pages/Login/constants/logo';
@@ -24,7 +24,7 @@ function AdminLayout({ children }) {
         } else {
             navigate(routes.login);
         }
-    }, [setIsLoggedIn, setUserData]);
+    }, [setIsLoggedIn, setUserData, navigate]);
 
     return (
         <div>
