@@ -1,5 +1,9 @@
 const routesAdmin = {
-    admin: '/admin',
+    admin: '',
+    adminProduct: 'product',
+    adminListProduct: 'listproduct',
+    adminCategory: 'category',
+    adminListCategory: 'listcategory',
 };
 
 const routes = {

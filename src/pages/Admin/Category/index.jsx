@@ -1,7 +1,7 @@
 import HeaderTable from '~/components/HeaderTabel';
 import { listTitle, orderList } from './Constant';
 
-function Product() {
+function Category() {
     const editOrder = (id) => {
         console.log('Editing order', id);
     };
@@ -18,18 +18,6 @@ function Product() {
                             <td className="py-3 px-6">{index + 1}</td>
                             <td className="py-3 px-6">{order.productName}</td>
                             <td className="py-3 px-6">{order.quantity}</td>
-                            <td className="py-3 px-6">{order.price.toLocaleString()} VND</td>
-                            <td className="py-3 px-6">
-                                <span
-                                    className={`px-3 py-1 rounded-full text-xs ${
-                                        new Date(order.dateEnd) < new Date()
-                                            ? 'bg-red-200 text-red-800'
-                                            : 'bg-green-200 text-green-800'
-                                    }`}
-                                >
-                                    {order.dateStart} - {order.dateEnd}
-                                </span>
-                            </td>
                             <td className="py-3 px-6">
                                 <button
                                     className="text-blue-600 hover:underline mr-2"
@@ -50,4 +38,4 @@ function Product() {
     );
 }
 
-export default Product;
+export default Category;
