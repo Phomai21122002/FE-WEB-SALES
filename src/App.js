@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Fragment } from 'react';
 import { publicRoutes, privateRoutes, adminRoutes } from '~/routes';
-import { AdminLayout, DefaultLayout } from './layouts';
+import { DefaultLayout } from './layouts';
 import { RequiredAuth } from '~/components/RequiredAuth';
+import { NotFound } from './pages/NotFound404/NotFound';
 
 function App() {
     return (
@@ -49,7 +50,7 @@ function App() {
                             );
                         })}
                     </Route>
-                    <Route element={<AdminLayout />}>
+                    <Route path="/admin" element={<RequiredAuth />}>
                         {adminRoutes.map((route, index) => {
                             const Page = route.component;
                             const Layout = route.layout || DefaultLayout;
@@ -66,7 +67,7 @@ function App() {
                             );
                         })}
                     </Route>
-                    {/* <Route path="*" element={<NotFound />} /> */}
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
         </Router>
