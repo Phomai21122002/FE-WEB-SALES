@@ -1,8 +1,17 @@
+import { useState } from 'react';
 import BackgroundCart from '~/components/BackgroundCart';
 import MenuProduct from '~/components/MenuProduct';
+import { Products } from '~/components/MenuProduct/Constains';
 import ProductCart from '~/components/ProductCart';
 
 function Cart() {
+    const [products, setProducts] = useState(Products);
+
+    const updateQuantity = (id, newQuantity) => {
+        setProducts((prevProducts) =>
+            prevProducts.map((product) => (product.id === id ? { ...product, quantity: newQuantity } : product)),
+        );
+    };
     return (
         <div className="max-w-[1100px] mx-auto py-8 mt-[64px]">
             <BackgroundCart className={'items-center'}>
@@ -20,9 +29,9 @@ function Cart() {
                         <span className="text-[16px] font-medium">Loại sản phẩm</span>
                     </div>
                 </BackgroundCart>
-                {[{ id: 1 }, { id: 2 }].map((item, index) => (
+                {products.map((item, index) => (
                     <BackgroundCart key={index} className="w-full items-center">
-                        <ProductCart product={item} />
+                        <ProductCart product={item} onUpdateQuantity={updateQuantity} />
                     </BackgroundCart>
                 ))}
             </div>

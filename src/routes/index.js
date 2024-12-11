@@ -12,8 +12,10 @@ import {
     Product,
     ProductDetail,
     SignUp,
-    UpdateProduct,
 } from '~/pages';
+import BoardBill from '~/pages/Admin/BoardBill';
+import BoardCancelOrder from '~/pages/Admin/BoardCancelOrder';
+import BoardConfirmOrder from '~/pages/Admin/BoardConfirmOrder';
 
 const publicRoutes = [
     { path: config.routes.login, component: Login, layout: AuthLayout },
@@ -33,6 +35,9 @@ const adminRoutes = [
     { path: config.routes.adminListProduct, component: Product, layout: AdminLayout },
     { path: config.routes.adminCategory, component: CreateCategory, layout: AdminLayout },
     { path: config.routes.adminListCategory, component: Category, layout: AdminLayout },
+    { path: config.routes.adminListConfirmOrder, component: BoardConfirmOrder, layout: AdminLayout },
+    { path: config.routes.adminListCancelOrder, component: BoardCancelOrder, layout: AdminLayout },
+    { path: config.routes.adminListBill, component: BoardBill, layout: AdminLayout },
 ];
 
 export { publicRoutes, privateRoutes, adminRoutes };

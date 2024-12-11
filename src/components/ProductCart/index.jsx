@@ -6,7 +6,7 @@ import routes from '~/config/routes';
 import QuantitySelector from '~/components/QuantitySelector';
 import imgHeader01 from '~/assets/images/imgHeader01.jpg';
 
-function ProductCart({ product }) {
+function ProductCart({ product, onUpdateQuantity }) {
     return (
         <>
             <input type="checkbox" className="w-4 h-4 mr-4 cursor-pointer" />
@@ -20,7 +20,7 @@ function ProductCart({ product }) {
             </Link>
             <div className="w-32 text-center text-black-500 text-sm font-medium">100.000đ 100.000đ100.000đ</div>
             <div className="w-32 flex justify-center">
-                <QuantitySelector product={product} quantity={product.id} />
+                <QuantitySelector product={product} quantity={product.quantity} onUpdateQuantity={onUpdateQuantity} />
             </div>
             <div className="w-32 text-center text-sm font-medium">100.000đ 100.000đ 100.000đ</div>
             <div className="w-32 text-center font-medium leading-none">

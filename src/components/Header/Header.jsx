@@ -6,8 +6,11 @@ import logoSale from '~/assets/images/Logo-sales.png';
 import { menuHeader } from './Constains';
 import { Link } from 'react-router-dom';
 import routes from '~/config/routes';
+import { useStorage } from '~/Contexts';
+import AvatarUser from '../AvatarUser';
 
 const Header = () => {
+    const { userData } = useStorage();
     return (
         <div className="flex items-center justify-center fixed top-0 left-0 w-full z-50 bg-white shadow-md">
             <div className="flex items-center justify-between max-w-[1080px] w-full px-6 py-1">
@@ -39,9 +42,10 @@ const Header = () => {
                             <SearchOutlinedIcon sx={{ fontSize: '20px' }} className="text-gray-500" />
                         </div>
                     </div>
-                    <div className="flex items-center space-x-2 hover:text-yellow-400 cursor-pointer">
+                    <Link to={routes.cart} className="flex items-center space-x-2 hover:text-yellow-400 cursor-pointer">
                         <ShoppingCartOutlinedIcon sx={{ fontSize: '16px' }} />
-                    </div>
+                    </Link>
+                    {userData && <AvatarUser />}
                 </div>
             </div>
         </div>
