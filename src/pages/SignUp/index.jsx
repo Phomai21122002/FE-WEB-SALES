@@ -1,15 +1,18 @@
 import React, { memo } from 'react';
 import { Button, Divider, TextField } from '@mui/material';
 import { Apple, FaceBookColor, GoogleColor } from '~/components/Icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 
+import { SignUp as Register } from '~/services/Auth';
 import { joiResolver } from '@hookform/resolvers/joi';
 import validation from './validation';
+import { toast } from 'react-toastify';
 
 const borderStyle = 'border-[1px] border-[#8590A2] border-solid';
 
-function SignUp(props) {
+function SignUp() {
+    const navigate = useNavigate();
     const form = useForm({
         defaultValues: {
             userName: '',
@@ -24,7 +27,15 @@ function SignUp(props) {
 
     const handleSubmit = (values) => {
         const { email, password, userName } = values;
-        console.log(email, password, userName);
+        Register(userName, email, password)
+            .then(() => {
+                toast.success('Register account successfully');
+                navigate('/login');
+            })
+            .catch((err) => {
+                console.error(err);
+                toast.error('Register account fail');
+            });
     };
 
     return (

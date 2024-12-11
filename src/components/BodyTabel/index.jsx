@@ -4,8 +4,10 @@ const BodyTabel = ({ index, item = {}, onEdit, onDel }) => {
     return (
         <tr key={item.id} className="border-b hover:bg-gray-50">
             <td className="py-3 px-6">{index + 1}</td>
-            <td className="py-3 px-6">{item.productName}</td>
+            <td className="py-3 px-6">{item.username}</td>
+            <td className="py-3 px-6 min-w-[120px]">{item.productName}</td>
             <td className="py-3 px-6">{item.quantity}</td>
+            <td className="py-3 px-6 min-w-[120px]">{item.address}</td>
             <td className="py-3 px-6">{item.totalPrice.toLocaleString()} VND</td>
             <td className="py-3 px-6">
                 <span
@@ -20,7 +22,7 @@ const BodyTabel = ({ index, item = {}, onEdit, onDel }) => {
                     {item.status}
                 </span>
             </td>
-            <td className="py-3 px-6">
+            <td className="py-3 px-6 min-w-[120px]">
                 <button className="text-blue-600 hover:underline mr-2" onClick={() => onEdit(item.id)}>
                     Xác nhận
                 </button>

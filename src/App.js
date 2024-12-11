@@ -50,7 +50,7 @@ function App() {
                             );
                         })}
                     </Route>
-                    <Route path="/admin" element={<RequiredAuth />}>
+                    <Route element={<RequiredAuth />}>
                         {adminRoutes.map((route, index) => {
                             const Page = route.component;
                             const Layout = route.layout || DefaultLayout;

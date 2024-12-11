@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import routes from '../../config/routes';
-import { useEffect } from 'react';
 
 export const NotFound = () => {
     const navigate = useNavigate();
@@ -13,13 +12,6 @@ export const NotFound = () => {
         });
         navigate(routes.login);
     };
-
-    useEffect(() => {
-        if (Cookies.get('authToken')) {
-            navigate(routes.home);
-        }
-        // eslint-disable-next-line
-    }, [Cookies.get('authToken')]);
 
     return (
         <div className="flex h-screen w-screen items-center justify-center flex-col text-center gap-4">

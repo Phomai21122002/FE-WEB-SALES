@@ -1,15 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import logoSale from '~/assets/images/Logo-sales.png';
-import { Link } from 'react-router-dom';
 import routes from '~/config/routes';
-import { useStorage } from '~/Contexts';
-import { Avatar } from '@mui/material';
-import { stringAvatar } from '~/utils/color';
+import AvatarUser from '../AvatarUser';
 
 const HeaderAdmin = () => {
-    const { userData } = useStorage();
-    console.log(userData);
     return (
         <div className="flex items-center justify-center bg-white shadow-md">
             <div className="flex items-center justify-between max-w-[1080px] w-full px-6 py-1">
@@ -24,19 +20,7 @@ const HeaderAdmin = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center space-x-6 text-lg font-bold text-[12px] uppercase">
-                    <div className="relative flex items-center justify-center mb-2">
-                        <Avatar
-                            {...stringAvatar(userData?.sub)}
-                            alt={userData?.sub}
-                            src={userData?.avatarUrl || ''}
-                            sx={{ ...stringAvatar(userData?.sub)?.sx, width: 32, height: 32, marginRight: '8px' }}
-                        />
-                        <div className="flex items-center justify-center mr-1 font-bold text-[12px]">
-                            {userData?.sub}
-                        </div>
-                    </div>
-                </div>
+                <AvatarUser />
             </div>
         </div>
     );

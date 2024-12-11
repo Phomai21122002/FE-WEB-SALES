@@ -27,10 +27,6 @@ function GlobalStates({ children }) {
         }
     }, []);
 
-    useEffect(() => {
-        console.log('User data updated:', userData);
-    }, [userData]);
-
     return <StorageContext.Provider value={states}>{children}</StorageContext.Provider>;
 }
 

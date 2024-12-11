@@ -1,16 +1,21 @@
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-
+import DifferenceOutlinedIcon from '@mui/icons-material/DifferenceOutlined';
+import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
+import PlaylistAddOutlinedIcon from '@mui/icons-material/PlaylistAddOutlined';
+import BallotOutlinedIcon from '@mui/icons-material/BallotOutlined';
+import PlaylistRemoveOutlinedIcon from '@mui/icons-material/PlaylistRemoveOutlined';
+import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 export const ToDoList = () => [
     {
         title: 'Sản phẩm',
         list: [
             {
-                icon: <PeopleAltIcon fontSize="small" />,
+                icon: <DifferenceOutlinedIcon fontSize="small" />,
                 title: 'Thêm sản phẩm',
                 path: `/admin/product`,
             },
             {
-                icon: <PeopleAltIcon fontSize="small" />,
+                icon: <ReceiptLongOutlinedIcon fontSize="small" />,
                 title: 'Danh sách sản phẩm',
                 path: `/admin/listproduct`,
             },
@@ -20,12 +25,12 @@ export const ToDoList = () => [
         title: 'Loại sản phẩm',
         list: [
             {
-                icon: <PeopleAltIcon fontSize="small" />,
+                icon: <PlaylistAddOutlinedIcon fontSize="small" />,
                 title: 'Thêm loại sản phẩm',
                 path: `/admin/category`,
             },
             {
-                icon: <PeopleAltIcon fontSize="small" />,
+                icon: <ReceiptLongOutlinedIcon fontSize="small" />,
                 title: 'Danh sách loại sản phẩm',
                 path: `/admin/listcategory`,
             },
@@ -35,19 +40,19 @@ export const ToDoList = () => [
         title: 'Đặt hàng',
         list: [
             {
-                icon: <PeopleAltIcon fontSize="small" />,
+                icon: <BallotOutlinedIcon fontSize="small" />,
                 title: 'Danh sách xác nhận đơn hàng',
-                path: `/admin/category`,
+                path: `/admin/confirmorder`,
             },
             {
-                icon: <PeopleAltIcon fontSize="small" />,
+                icon: <PlaylistRemoveOutlinedIcon fontSize="small" />,
                 title: 'Danh sách hủy bỏ đơn hàng',
-                path: `/admin/category`,
+                path: `/admin/cancelorder`,
             },
             {
-                icon: <PeopleAltIcon fontSize="small" />,
+                icon: <PaymentsOutlinedIcon fontSize="small" />,
                 title: 'Danh sách hóa đơn',
-                path: `/admin/listcategory`,
+                path: `/admin/bill`,
             },
         ],
     },
@@ -55,9 +60,9 @@ export const ToDoList = () => [
         title: 'Báo cáo thống kê',
         list: [
             {
-                icon: <PeopleAltIcon fontSize="small" />,
+                icon: <PaymentsOutlinedIcon fontSize="small" />,
                 title: 'Doanh thu',
-                path: `/admin/category`,
+                path: `/admin/revenue`,
             },
         ],
     },
@@ -65,7 +70,7 @@ export const ToDoList = () => [
 
 export const UserItems = () => [
     {
-        icon: <PeopleAltIcon fontSize="small" />,
+        icon: <DescriptionOutlinedIcon fontSize="small" />,
         title: 'Danh sách đặt hàng',
         path: `/admin`,
     },
