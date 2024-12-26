@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { Button, Divider, TextField } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
@@ -22,6 +22,12 @@ const Login = memo(() => {
             password: '',
         },
     });
+
+    useEffect(() => {
+        setIsLoggedIn(false);
+        localStorage.clear();
+        Cookies.remove('authToken');
+    }, [setIsLoggedIn]);
 
     const onLogin = async (values) => {
         const { username, password } = values;

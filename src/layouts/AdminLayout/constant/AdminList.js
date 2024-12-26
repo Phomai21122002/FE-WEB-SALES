@@ -5,6 +5,7 @@ import BallotOutlinedIcon from '@mui/icons-material/BallotOutlined';
 import PlaylistRemoveOutlinedIcon from '@mui/icons-material/PlaylistRemoveOutlined';
 import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 export const ToDoList = () => [
     {
         title: 'Sản phẩm',
@@ -62,6 +63,16 @@ export const ToDoList = () => [
             {
                 icon: <PaymentsOutlinedIcon fontSize="small" />,
                 title: 'Doanh thu',
+                path: `/admin/revenue`,
+            },
+        ],
+    },
+    {
+        title: 'Danh sách Người Dùng',
+        list: [
+            {
+                icon: <AccountCircleIcon fontSize="small" />,
+                title: 'Khách hàng',
                 path: `/admin/revenue`,
             },
         ],

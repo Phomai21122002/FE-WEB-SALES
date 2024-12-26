@@ -1,34 +1,48 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowForward, ArrowBack } from '@mui/icons-material';
-
-import { products } from './Constains/index';
+import { GetCategories } from '~/services/Category';
+import noImage from '~/assets/images/No-image.png';
 
 function MenuCategory() {
+    const [categories, setCategories] = useState([]);
+
     const [currentIndex, setCurrentIndex] = useState(0);
     const itemsToShow = 8;
 
-    const hasNext = currentIndex + itemsToShow < products.length;
+    const hasNext = currentIndex + itemsToShow < categories.length;
     const hasPrev = currentIndex > 0;
 
-    const nextProduct = () => {
+    const nextCategory = () => {
         if (hasNext) {
             setCurrentIndex((prevIndex) => prevIndex + itemsToShow);
         }
     };
 
-    const prevProduct = () => {
+    const prevCategory = () => {
         if (hasPrev) {
             setCurrentIndex((prevIndex) => prevIndex - itemsToShow);
         }
     };
 
+    useEffect(() => {
+        const getAllCategory = async () => {
+            try {
+                const res = await GetCategories();
+                setCategories(res.data);
+            } catch (err) {
+                console.error('Error fetching product data: ', err);
+            }
+        };
+        getAllCategory();
+    }, []);
+
     return (
         <div className="py-4">
-            <div className="flex text-xl font-semibold mb-4">Nhóm hàng thường mua</div>
+            <div className="flex text-xl font-semibold mb-4 uppercase">Nhóm hàng mới nhất</div>
             <div className="relative">
                 {hasPrev && (
                     <button
-                        onClick={prevProduct}
+                        onClick={prevCategory}
                         className="absolute left-[-10px] top-1/2 transform -translate-y-1/2 bg-gray-200 rounded-full hover:outline-none hover:ring-2 hover:ring-blue-500 transition-all z-[10]"
                     >
                         <ArrowBack />
@@ -36,11 +50,11 @@ function MenuCategory() {
                 )}
                 <div className="overflow-hidden">
                     <div className="grid grid-cols-8 gap-4 transition-all duration-500 p-1">
-                        {products.slice(currentIndex, currentIndex + itemsToShow).map((product) => (
+                        {categories.slice(currentIndex, currentIndex + itemsToShow).map((product) => (
                             <div key={product.id}>
                                 <div className="relative w-full h-[100px] overflow-hidden rounded-[100%]">
                                     <img
-                                        src={product.image}
+                                        src={product.image || noImage}
                                         alt={product.name}
                                         className="w-full h-full object-cover transform transition-all duration-300 group-hover:scale-105"
                                     />
@@ -53,7 +67,7 @@ function MenuCategory() {
                 </div>
                 {hasNext && (
                     <button
-                        onClick={nextProduct}
+                        onClick={nextCategory}
                         className="absolute right-[-10px] top-1/2 transform -translate-y-1/2 bg-gray-200 rounded-full hover:outline-none hover:ring-2 hover:ring-blue-500 transition-all z-[10]"
                     >
                         <ArrowForward />

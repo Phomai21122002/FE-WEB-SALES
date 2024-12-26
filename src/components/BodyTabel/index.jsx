@@ -1,8 +1,10 @@
 import React from 'react';
+import { useStorage } from '~/Contexts';
 
 const BodyTabel = ({ index, item = {}, onEdit, onDel }) => {
+    const { userData } = useStorage();
     return (
-        <tr key={item.id} className="border-b hover:bg-gray-50">
+        <tr key={item.id} className="border-b hover:bg-gray-50 cursor-pointer">
             <td className="py-3 px-6">{index + 1}</td>
             <td className="py-3 px-6">{item.username}</td>
             <td className="py-3 px-6 min-w-[120px]">{item.productName}</td>
@@ -22,14 +24,16 @@ const BodyTabel = ({ index, item = {}, onEdit, onDel }) => {
                     {item.status}
                 </span>
             </td>
-            <td className="py-3 px-6 min-w-[120px]">
-                <button className="text-blue-600 hover:underline mr-2" onClick={() => onEdit(item.id)}>
-                    Xác nhận
-                </button>
-                <button className="text-red-600 hover:underline" onClick={() => onDel(item.id)}>
-                    Xóa
-                </button>
-            </td>
+            {userData && userData.role === 'Admin' && (
+                <td className="py-3 px-6 min-w-[120px]">
+                    <button className="text-blue-600 hover:underline mr-2" onClick={() => onEdit(item.id)}>
+                        Xác nhận
+                    </button>
+                    <button className="text-red-600 hover:underline" onClick={() => onDel(item.id)}>
+                        Xóa
+                    </button>
+                </td>
+            )}
         </tr>
     );
 };

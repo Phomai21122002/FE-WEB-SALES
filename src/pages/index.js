@@ -5,3 +5,4 @@ export { default as Cart } from '~/pages/Cart';
 export { default as Order } from '~/pages/Order';
 export { default as ProductDetail } from '~/pages/ProductDetail';
 export * from './Admin';
+export * from './User';

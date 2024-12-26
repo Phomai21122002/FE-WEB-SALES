@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { images } from '~/pages/Home/Constains/index';
+import noImage from '~/assets/images/No-image.png';
 
 function SliderImg() {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -17,7 +18,7 @@ function SliderImg() {
     };
     return (
         <div className="relative mt-[64px]">
-            <img src={images[currentIndex]} alt="Slide" className="w-full h-[500px] object-cover" />
+            <img src={images[currentIndex] || noImage} alt="Slide" className="w-full h-[500px] object-cover" />
             <div className="absolute flex items-center bottom-4 left-1/2 transform -translate-x-1/2">
                 {images.map((_, index) => (
                     <div
