@@ -1,63 +1,55 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faGooglePlus, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { useParams } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Skeleton } from '@mui/material';
 
 import Button from '~/components/Button';
 import ImageSlider from '~/components/ImageSlider';
-import imgHeader01 from '~/assets/images/imgHeader01.jpg';
-import imgHeader02 from '~/assets/images/imgHeader02.jpg';
 import CountNumber from '~/components/CountNumber';
 import MenuProduct from '~/components/MenuProduct';
+import { GetProductBySlug } from '~/services/Product';
 
 function ProductDetail() {
-    const { id } = useParams();
-    console.log(id);
+    const { slug } = useParams();
     const [loading, setLoading] = useState(false);
 
-    const [product, setProduct] = useState(
-        {
-            variantOptions: [
-                { id: 1, price: '60000', name: 'Sốt me' },
-                { id: 2, price: '50000', name: 'Sốt phômai' },
-            ],
-            productImage: [imgHeader01, imgHeader02, imgHeader02],
-            name: 'Bánh tráng',
-            description: 'Bánh tráng huế chất lượng ăn vào là ghiền',
-            quantity: 1,
-        } || {},
-    );
-    const [option, setOption] = useState({});
+    const [product, setProduct] = useState({});
+    // const [option, setOption] = useState({});
 
-    const selectRef = useRef();
+    // const selectRef = useRef();
 
     const updateQuantity = (id, newQuantity) => {
-        setProduct((prevProducts) => ({ ...prevProducts, quantity: newQuantity }));
+        setProduct((prevProducts) => ({ ...prevProducts, count: newQuantity }));
     };
 
-    const handleChangeOption = async (e) => {
-        const idOption = e.target.value;
-        const optionSelected = product.variantOptions.find((option) => option.id === Number(idOption));
-        setOption(optionSelected);
-    };
+    // const handleChangeOption = async (e) => {
+    //     const idOption = e.target.value;
+    //     const optionSelected = product.variantOptions.find((option) => option.id === Number(idOption));
+    //     setOption(optionSelected);
+    // };
 
     useEffect(() => {
-        // window.scrollTo(0, 0);
-        setLoading(true);
-        setLoading(false);
-        setOption(product.variantOptions[0]);
-        // getProductById(id)
-        //     .then((res) => {
-        //         setLoading(false);
-        //         setProduct(res);
-        //         setOption(res.variantOptions[0]);
-        //         contentRef.current.innerHTML = res.htmlDomDescription;
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     });
-    }, [id, product]);
+        const getProductById = () => {
+            GetProductBySlug({ slug })
+                .then((res) => {
+                    setLoading(true);
+                    const result = {
+                        ...res,
+                        ...res?.product,
+                        count: 1,
+                    };
+                    setProduct(result);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        };
+        getProductById();
+    }, [slug]);
 
     return (
         <div className="max-w-[1200px] mx-auto pt-32">
@@ -65,24 +57,24 @@ function ProductDetail() {
                 {/* Left Section */}
                 <div className="flex-1">
                     <div className="w-full max-w-md mx-auto">
-                        {product.productImage?.length > 0 || (
+                        {product.imageDtos?.length > 0 || (
                             <Skeleton variant="rectangular" animation="wave" width={370} height={370} />
                         )}
-                        <ImageSlider images={product.productImage} />
+                        <ImageSlider images={product.imageDtos} />
                     </div>
                 </div>
 
                 {/* Right Section */}
                 <div className="flex-1 space-y-4">
-                    {product.name && !loading ? (
+                    {product?.product?.name && !loading ? (
                         <h1 className="text-2xl font-semibold">{product.name}</h1>
                     ) : (
                         <Skeleton variant="text" className="text-lg" />
                     )}
 
                     <div className="text-xl font-bold text-red-500">
-                        {option.price && !loading ? (
-                            <span>{`${Number(option.price).toLocaleString('vi-VN', {
+                        {product.price && !loading ? (
+                            <span>{`${Number(product.price).toLocaleString('vi-VN', {
                                 currency: 'VND',
                             })}đ`}</span>
                         ) : (
@@ -95,7 +87,7 @@ function ProductDetail() {
                     ) : (
                         <Skeleton variant="text" className="w-full" />
                     )}
-
+                    {/* 
                     <div>
                         <label className="block mb-2 font-bold uppercase text-sm">Lựa chọn</label>
                         <select
@@ -109,13 +101,14 @@ function ProductDetail() {
                                 </option>
                             ))}
                         </select>
-                    </div>
+                    </div> */}
 
                     {/* Quantity and Buy Button */}
                     <div className="flex items-center gap-4">
-                        <CountNumber product={product} quantity={product?.quantity} onUpdateQuantity={updateQuantity} />
+                        <CountNumber product={product} quantity={product?.count} onUpdateQuantity={updateQuantity} />
                         <Button rouded title="MUA HÀNG" />
                     </div>
+                    <p className="text-sm text-gray-600">còn {product.quantity} sản phẩm</p>
 
                     {/* Social Sharing */}
                     <div className="flex items-center gap-4 mt-4 cursor-pointer">

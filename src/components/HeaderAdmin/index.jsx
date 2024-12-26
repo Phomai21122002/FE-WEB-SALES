@@ -1,11 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ClickAwayListener } from '@mui/material';
 
 import logoSale from '~/assets/images/Logo-sales.png';
 import routes from '~/config/routes';
 import AvatarUser from '../AvatarUser';
+import PopperProfile from '../PopperProfile';
+import { options } from '../PopperProfile/Constains';
 
 const HeaderAdmin = () => {
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(anchorEl ? null : event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popper' : undefined;
+
     return (
         <div className="flex items-center justify-center bg-white shadow-md">
             <div className="flex items-center justify-between max-w-[1080px] w-full px-6 py-1">
@@ -19,8 +35,20 @@ const HeaderAdmin = () => {
                         </div>
                     </div>
                 </div>
-
-                <AvatarUser />
+                <ClickAwayListener onClickAway={handleClose}>
+                    <>
+                        <button aria-describedby={id} type="button" onClick={handleClick}>
+                            <AvatarUser />
+                        </button>
+                        <PopperProfile
+                            id={id}
+                            open={open}
+                            anchorEl={anchorEl}
+                            onClose={handleClose}
+                            options={options}
+                        />
+                    </>
+                </ClickAwayListener>
             </div>
         </div>
     );

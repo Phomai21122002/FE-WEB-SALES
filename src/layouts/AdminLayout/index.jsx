@@ -63,22 +63,18 @@ const AdminLayout = ({ children }) => {
                                     }
                                 >
                                     <div className="flex flex-col gap-[4px]">
-                                        {itemList.list?.map((item, index) => {
-                                            return (
-                                                <div
-                                                    key={index}
-                                                    className={`hover:cursor-pointer pl-4 py-2 rounded-md flex items-center ${isActiveClassname(
-                                                        item.path,
-                                                    )}`}
-                                                    onClick={() => navigate(item.path)}
-                                                >
-                                                    <span className="flex items-center justify-center">
-                                                        {item.icon}
-                                                    </span>
-                                                    <span className="ml-2">{item.title}</span>
-                                                </div>
-                                            );
-                                        })}
+                                        {itemList.list?.map((item, index) => (
+                                            <div
+                                                key={index}
+                                                className={`hover:cursor-pointer pl-4 py-2 rounded-md flex items-center ${isActiveClassname(
+                                                    item.path,
+                                                )}`}
+                                                onClick={() => navigate(item.path)}
+                                            >
+                                                <span className="flex items-center justify-center">{item.icon}</span>
+                                                <span className="ml-2">{item.title}</span>
+                                            </div>
+                                        ))}
                                     </div>
                                 </Collapse>
                             ))}

@@ -1,9 +1,12 @@
 import config from '~/config';
 import { AdminLayout, AuthLayout } from '~/layouts';
 import {
+    BoardBillUser,
     BoardOrder,
     Cart,
     Category,
+    ChangePassAdmin,
+    ChangePassUser,
     CreateCategory,
     CreateProduct,
     Home,
@@ -11,6 +14,8 @@ import {
     Order,
     Product,
     ProductDetail,
+    ProfileAdmin,
+    ProfileUser,
     SignUp,
 } from '~/pages';
 import BoardBill from '~/pages/Admin/BoardBill';
@@ -20,9 +25,6 @@ import BoardConfirmOrder from '~/pages/Admin/BoardConfirmOrder';
 const publicRoutes = [
     { path: config.routes.login, component: Login, layout: AuthLayout },
     { path: config.routes.signup, component: SignUp, layout: AuthLayout },
-];
-
-const privateRoutes = [
     { path: config.routes.home, component: Home },
     { path: config.routes.cart, component: Cart },
     { path: config.routes.order, component: Order },
@@ -38,6 +40,14 @@ const adminRoutes = [
     { path: config.routes.adminListConfirmOrder, component: BoardConfirmOrder, layout: AdminLayout },
     { path: config.routes.adminListCancelOrder, component: BoardCancelOrder, layout: AdminLayout },
     { path: config.routes.adminListBill, component: BoardBill, layout: AdminLayout },
+    { path: config.routes.adminProfile, component: ProfileAdmin, layout: AdminLayout },
+    { path: config.routes.adminChangePass, component: ChangePassAdmin, layout: AdminLayout },
 ];
 
-export { publicRoutes, privateRoutes, adminRoutes };
+const userRoutes = [
+    { path: config.routes.userListBill, component: BoardBillUser },
+    { path: config.routes.userProfile, component: ProfileUser },
+    { path: config.routes.userChangePass, component: ChangePassUser },
+];
+
+export { publicRoutes, adminRoutes, userRoutes };

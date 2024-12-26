@@ -4,12 +4,4 @@ export const orderList = [
     { id: 3, productName: 'Sản phẩm C', quantity: 5, price: 500000, dateStart: '2024-12-01', dateEnd: '2024-12-9' },
 ];
 
-export const updatedProducts = (products) => {
-    console.log(products);
-    return products.map((product) => ({
-        ...product?.imageDtos[0],
-        ...product?.product,
-    }));
-};
-
 export const listTitle = ['STT', 'Tên sản phẩm', 'Số lượng', 'Giá', 'Hạng sử dụng', 'Điều chỉnh'];

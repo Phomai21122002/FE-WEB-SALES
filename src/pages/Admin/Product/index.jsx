@@ -1,14 +1,33 @@
 import HeaderTable from '~/components/HeaderTabel';
-import { listTitle, orderList } from './Constant';
+import { listTitle, orderList, updatedProducts } from './Constant';
 import SearchSortListOfAdmin from '~/components/SearchSortListOfAdmin';
+import { useEffect, useState } from 'react';
+import { GetProducts } from '~/services/Product';
 
 function Product() {
+    const [products, setProducts] = useState([]);
+
     const editOrder = (id) => {
         console.log('Editing order', id);
     };
     const deleteOrder = (id) => {
         console.log('Deleting order', id);
     };
+
+    useEffect(() => {
+        const getAllProduct = async () => {
+            try {
+                const res = await GetProducts();
+                const resultProducts = updatedProducts(res);
+                console.log(resultProducts);
+                setProducts(resultProducts);
+            } catch (err) {
+                console.error('Error fetching product data: ', err);
+            }
+        };
+        getAllProduct();
+    }, []);
+
     return (
         <>
             <SearchSortListOfAdmin />

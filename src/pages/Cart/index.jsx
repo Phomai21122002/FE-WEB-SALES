@@ -1,11 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import BackgroundCart from '~/components/BackgroundCart';
 import MenuProduct from '~/components/MenuProduct';
-import { Products } from '~/components/MenuProduct/Constains';
+import { updatedProducts } from '~/components/MenuProduct/Constains';
 import ProductCart from '~/components/ProductCart';
+import { GetProducts } from '~/services/Product';
 
 function Cart() {
-    const [products, setProducts] = useState(Products);
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const getAllProduct = async () => {
+            try {
+                const res = await GetProducts();
+                const resultProducts = updatedProducts(res);
+                setProducts(resultProducts);
+            } catch (err) {
+                console.error('Error fetching product data: ', err);
+            }
+        };
+        getAllProduct();
+    }, []);
 
     const updateQuantity = (id, newQuantity) => {
         setProducts((prevProducts) =>

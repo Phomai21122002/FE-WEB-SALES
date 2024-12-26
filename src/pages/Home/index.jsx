@@ -7,7 +7,7 @@ function Home() {
         <div className="max-w-[1100px] mx-auto px-8">
             <SliderImg />
             <MenuCategory />
-            <MenuProduct title={'Tên Category'} />
+            <MenuProduct title={'Sản phẩm mới nhất'} />
         </div>
     );
 }

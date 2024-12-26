@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Fragment } from 'react';
-import { publicRoutes, privateRoutes, adminRoutes } from '~/routes';
+import { publicRoutes, adminRoutes, userRoutes } from '~/routes';
 import { DefaultLayout } from './layouts';
 import { RequiredAuth } from '~/components/RequiredAuth';
 import { NotFound } from './pages/NotFound404/NotFound';
@@ -34,7 +34,7 @@ function App() {
                         );
                     })}
                     <Route element={<RequiredAuth />}>
-                        {privateRoutes.map((route, index) => {
+                        {adminRoutes.map((route, index) => {
                             const Page = route.component;
                             const Layout = route.layout || DefaultLayout;
                             return (
@@ -51,7 +51,7 @@ function App() {
                         })}
                     </Route>
                     <Route element={<RequiredAuth />}>
-                        {adminRoutes.map((route, index) => {
+                        {userRoutes.map((route, index) => {
                             const Page = route.component;
                             const Layout = route.layout || DefaultLayout;
                             return (
