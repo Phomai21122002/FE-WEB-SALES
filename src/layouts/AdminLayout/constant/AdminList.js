@@ -6,6 +6,7 @@ import PlaylistRemoveOutlinedIcon from '@mui/icons-material/PlaylistRemoveOutlin
 import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import routes from '~/config/routes';
 export const ToDoList = () => [
     {
         title: 'Sản phẩm',
@@ -13,12 +14,12 @@ export const ToDoList = () => [
             {
                 icon: <DifferenceOutlinedIcon fontSize="small" />,
                 title: 'Thêm sản phẩm',
-                path: `/admin/product`,
+                path: routes.adminProduct,
             },
             {
                 icon: <ReceiptLongOutlinedIcon fontSize="small" />,
                 title: 'Danh sách sản phẩm',
-                path: `/admin/listproduct`,
+                path: routes.adminListProduct,
             },
         ],
     },
@@ -28,12 +29,12 @@ export const ToDoList = () => [
             {
                 icon: <PlaylistAddOutlinedIcon fontSize="small" />,
                 title: 'Thêm loại sản phẩm',
-                path: `/admin/category`,
+                path: routes.adminCategory,
             },
             {
                 icon: <ReceiptLongOutlinedIcon fontSize="small" />,
                 title: 'Danh sách loại sản phẩm',
-                path: `/admin/listcategory`,
+                path: routes.adminListCategory,
             },
         ],
     },
@@ -43,17 +44,17 @@ export const ToDoList = () => [
             {
                 icon: <BallotOutlinedIcon fontSize="small" />,
                 title: 'Danh sách xác nhận đơn hàng',
-                path: `/admin/confirmorder`,
+                path: routes.adminListConfirmOrder,
             },
             {
                 icon: <PlaylistRemoveOutlinedIcon fontSize="small" />,
                 title: 'Danh sách hủy bỏ đơn hàng',
-                path: `/admin/cancelorder`,
+                path: routes.adminListCancelOrder,
             },
             {
                 icon: <PaymentsOutlinedIcon fontSize="small" />,
                 title: 'Danh sách hóa đơn',
-                path: `/admin/bill`,
+                path: routes.adminListBill,
             },
         ],
     },
@@ -63,7 +64,7 @@ export const ToDoList = () => [
             {
                 icon: <PaymentsOutlinedIcon fontSize="small" />,
                 title: 'Doanh thu',
-                path: `/admin/revenue`,
+                path: routes.adminRevenue,
             },
         ],
     },
@@ -73,7 +74,7 @@ export const ToDoList = () => [
             {
                 icon: <AccountCircleIcon fontSize="small" />,
                 title: 'Khách hàng',
-                path: `/admin/revenue`,
+                path: routes.adminListUser,
             },
         ],
     },
@@ -83,6 +84,6 @@ export const UserItems = () => [
     {
         icon: <DescriptionOutlinedIcon fontSize="small" />,
         title: 'Danh sách đặt hàng',
-        path: `/admin`,
+        path: routes.admin,
     },
 ];

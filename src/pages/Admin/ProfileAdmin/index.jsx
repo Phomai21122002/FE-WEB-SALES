@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import routes from '~/config/routes';
+import { GetProfile, UpdateUserById } from '~/services/User';
 
 function ProfileAdmin() {
     const navigate = useNavigate();
@@ -10,10 +12,40 @@ function ProfileAdmin() {
         reset,
         formState: { errors },
     } = useForm();
+    const [dataProfile, setDataProfile] = useState([]);
 
-    const handleSaveProfile = (profile) => {
-        console.log('Thông tin profile:', profile);
-        // Thêm logic lưu thông tin profile vào database hoặc state ở đây
+    useEffect(() => {
+        const getProfile = async () => {
+            try {
+                const res = await GetProfile();
+                console.log(res);
+                console.log(res.addresses);
+                setDataProfile(res);
+                reset({
+                    id: res.id,
+                    username: res.username,
+                    email: res.email,
+                    phoneNumber: res.phoneNumber,
+                });
+            } catch (err) {
+                console.error('Error fetching categories: ', err);
+            }
+        };
+        getProfile();
+    }, [reset]);
+
+    const handleSaveProfile = async (profile) => {
+        const { id, ...profileToDB } = profile;
+        const profileReq = {
+            ...profileToDB,
+            roles: ['Admin'],
+        };
+        try {
+            await UpdateUserById(id, profileReq);
+            navigate(routes.admin);
+        } catch (err) {
+            console.error('Error saving profile:', err);
+        }
     };
 
     const onSubmit = (data) => {
@@ -30,14 +62,14 @@ function ProfileAdmin() {
             <h2 className="text-xl font-bold mb-4">Thông Tin Admin</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                 <div>
-                    <label className="block text-sm font-bold mb-1">Họ và tên</label>
+                    <label className="block text-sm font-bold mb-1">Tên người dùng</label>
                     <input
                         type="text"
                         className="w-full text-sm p-2 border rounded-md"
-                        {...register('fullName', { required: 'Họ và tên là bắt buộc' })}
-                        placeholder="Nhập họ và tên"
+                        {...register('username', { required: 'Tên người dùng là bắt buộc' })}
+                        placeholder="Nhập tên người dùng"
                     />
-                    {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName.message}</p>}
+                    {errors.username && <p className="text-red-500 text-sm">{errors.username.message}</p>}
                 </div>
 
                 <div>
@@ -62,7 +94,7 @@ function ProfileAdmin() {
                     <input
                         type="tel"
                         className="w-full text-sm p-2 border rounded-md"
-                        {...register('phone', {
+                        {...register('phoneNumber', {
                             required: 'Số điện thoại là bắt buộc',
                             pattern: {
                                 value: /^[0-9]{10,11}$/,
@@ -71,30 +103,23 @@ function ProfileAdmin() {
                         })}
                         placeholder="Nhập số điện thoại"
                     />
-                    {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
+                    {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber.message}</p>}
                 </div>
 
                 <div>
-                    <label className="block text-sm font-bold mb-1">Vai trò</label>
+                    <label className="block text-sm font-bold mb-1">Địa chỉ</label>
                     <select
                         className="w-full text-sm p-2 border rounded-md"
-                        {...register('role', { required: 'Vai trò là bắt buộc' })}
+                        {...register('address', { required: 'Địa chỉ là bắt buộc' })}
                     >
-                        <option value="">Chọn vai trò</option>
-                        <option value="Admin">Admin</option>
-                        <option value="User">User</option>
+                        <option value="">Chọn địa chỉ</option>
+                        {dataProfile?.addresses?.map((profile, index) => (
+                            <option key={index} value={profile.city}>
+                                {profile.city}
+                            </option>
+                        ))}
                     </select>
-                    {errors.role && <p className="text-red-500 text-sm">{errors.role.message}</p>}
-                </div>
-
-                <div>
-                    <label className="block text-sm font-bold mb-1">Ngày tham gia</label>
-                    <input
-                        type="date"
-                        className="max-w-[200px] text-sm p-2 border rounded-md"
-                        {...register('joinDate', { required: 'Ngày tham gia là bắt buộc' })}
-                    />
-                    {errors.joinDate && <p className="text-red-500 text-sm">{errors.joinDate.message}</p>}
+                    {errors.address && <p className="text-red-500 text-sm">{errors.address.message}</p>}
                 </div>
 
                 <div className="flex gap-4">

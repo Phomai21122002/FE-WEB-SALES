@@ -1,24 +1,37 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import routes from '~/config/routes';
+import { useStorage } from '~/Contexts';
+import { ChangePassword } from '~/services/User';
 
 function ChangePassAdmin() {
     const navigate = useNavigate();
+    const { userData } = useStorage();
     const {
         register,
         handleSubmit,
         reset,
         formState: { errors },
     } = useForm();
-
-    const handleChangePassword = (data) => {
-        console.log('Thông tin mật khẩu:', data);
-        // Thêm logic để thay đổi mật khẩu (gửi dữ liệu lên server)
+    const [errorPass, setErrorPass] = useState('');
+    const handleChangePassword = async (data) => {
+        const { confirmPassword, ...dataPass } = data;
+        const dataReq = {
+            ...dataPass,
+        };
+        try {
+            await ChangePassword(userData?.userId, dataReq);
+            navigate(routes.admin);
+            reset();
+        } catch (err) {
+            setErrorPass('Trường nhập liệu lỗi. Vui lòng nhập chính xác!');
+            console.error('Error saving profile:', err);
+        }
     };
 
     const onSubmit = (data) => {
         handleChangePassword(data);
-        reset();
     };
 
     const handleBack = () => {
@@ -34,10 +47,10 @@ function ChangePassAdmin() {
                     <input
                         type="password"
                         className="w-full text-sm p-2 border rounded-md"
-                        {...register('currentPassword', { required: 'Mật khẩu hiện tại là bắt buộc' })}
+                        {...register('oldPassword', { required: 'Mật khẩu hiện tại là bắt buộc' })}
                         placeholder="Nhập mật khẩu hiện tại"
                     />
-                    {errors.currentPassword && <p className="text-red-500 text-sm">{errors.currentPassword.message}</p>}
+                    {errors.oldPassword && <p className="text-red-500 text-sm">{errors.oldPassword.message}</p>}
                 </div>
 
                 <div>
@@ -70,6 +83,7 @@ function ChangePassAdmin() {
                     />
                     {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>}
                 </div>
+                {errorPass && <p className="text-red-500 text-sm">{errorPass}</p>}
 
                 <div className="flex gap-4">
                     <button type="submit" className="bg-blue-500 text-sm text-white p-2 rounded-md hover:bg-blue-600">

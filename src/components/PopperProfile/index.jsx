@@ -1,32 +1,23 @@
 import { memo } from 'react';
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Popper from '@mui/material/Popper';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import { Popover } from '@mui/material';
 
-function PopperProfile({ id, open, anchorEl, options }) {
+function PopperProfile({ id, open, anchorEl, options, onClose }) {
     return (
-        <Popper
+        <Popover
             id={id}
             open={open}
             anchorEl={anchorEl}
-            placement="bottom-end"
-            modifiers={[
-                {
-                    name: 'offset',
-                    options: {
-                        offset: [0, 10],
-                    },
-                },
-            ]}
-            sx={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                zIndex: 1300,
+            onClose={onClose}
+            anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
             }}
+            disableScrollLock
         >
             <Box
                 sx={{
@@ -67,7 +58,7 @@ function PopperProfile({ id, open, anchorEl, options }) {
                     </Link>
                 ))}
             </Box>
-        </Popper>
+        </Popover>
     );
 }
 

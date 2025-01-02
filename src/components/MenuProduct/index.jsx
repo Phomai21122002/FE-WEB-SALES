@@ -2,10 +2,15 @@ import { useEffect, useState } from 'react';
 import Product from '../Product';
 import { GetProducts } from '~/services/Product';
 import { updatedProducts } from './Constains';
+import { useStorage } from '~/Contexts';
+import { useNavigate } from 'react-router-dom';
+import routes from '~/config/routes';
+import { AddCart } from '~/services/Cart';
 
 function MenuProduct({ title }) {
     const [products, setProducts] = useState([]);
-
+    const { userData, getDataCartNow } = useStorage();
+    const navigate = useNavigate();
     useEffect(() => {
         const getAllProduct = async () => {
             try {
@@ -19,8 +24,17 @@ function MenuProduct({ title }) {
         getAllProduct();
     }, []);
 
-    const addToCart = (productId, quantity) => {
-        console.log(`Thêm sản phẩm ${productId} với số lượng ${quantity} vào giỏ hàng`);
+    const addToCart = async (productId, quantity) => {
+        if (userData && Object.keys(userData).length > 0) {
+            const res = await AddCart({
+                quantity: quantity,
+                userId: userData?.userId,
+                productId: productId,
+            });
+            res && getDataCartNow();
+        } else {
+            navigate(routes.login);
+        }
     };
 
     const updateQuantity = (id, newQuantity) => {

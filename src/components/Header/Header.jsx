@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { ClickAwayListener } from '@mui/material';
+import { Badge, Divider } from '@mui/material';
 
 import logoSale from '~/assets/images/Logo-sales.png';
 import { menuHeader } from './Constains';
@@ -11,22 +11,34 @@ import { useStorage } from '~/Contexts';
 import AvatarUser from '../AvatarUser';
 import PopperProfile from '../PopperProfile';
 import { options, optionsUser } from '../PopperProfile/Constains';
+import PopperCart from '../PopperCart';
 
 const Header = () => {
-    const { userData } = useStorage();
-
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const { userData, dataCart } = useStorage();
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorElCart, setAnchorElCart] = useState(null);
 
     const handleClick = (event) => {
-        setAnchorEl(anchorEl ? null : event.currentTarget);
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClickCart = (event) => {
+        setAnchorElCart(event.currentTarget);
     };
 
     const handleClose = () => {
         setAnchorEl(null);
     };
 
+    const handleCloseCart = () => {
+        setAnchorElCart(null);
+    };
+
     const open = Boolean(anchorEl);
-    const id = open ? 'simple-popper' : undefined;
+    const openCart = Boolean(anchorElCart);
+    const idProfile = open ? 'simple-popover' : undefined;
+    const idCart = openCart ? 'cart-popover' : undefined;
+
     return (
         <div className="flex items-center justify-center fixed top-0 left-0 w-full z-50 bg-white shadow-md">
             <div className="flex items-center justify-between max-w-[1080px] w-full px-6 py-1">
@@ -59,23 +71,56 @@ const Header = () => {
                         </div>
                     </div>
                     <Link to={routes.cart} className="flex items-center space-x-2 hover:text-yellow-400 cursor-pointer">
-                        <ShoppingCartOutlinedIcon sx={{ fontSize: '16px' }} />
-                    </Link>
-                    {userData && Object.keys(userData).length > 0 && (
-                        <ClickAwayListener onClickAway={handleClose}>
-                            <>
-                                <button aria-describedby={id} type="button" onClick={handleClick}>
-                                    <AvatarUser />
-                                </button>
-                                <PopperProfile
-                                    id={id}
-                                    open={open}
-                                    anchorEl={anchorEl}
-                                    onClose={handleClose}
-                                    options={userData.role === 'Admin' ? options : optionsUser}
+                        <div
+                            onMouseEnter={handleClickCart}
+                            onMouseLeave={handleCloseCart}
+                            className="flex items-center space-x-2"
+                        >
+                            <button aria-describedby={idCart} variant="contained">
+                                <Badge badgeContent={dataCart.length} color="primary">
+                                    <ShoppingCartOutlinedIcon sx={{ fontSize: '16px' }} />
+                                </Badge>
+                            </button>
+                            {userData.role === 'User' && (
+                                <PopperCart
+                                    id={idCart}
+                                    open={openCart}
+                                    anchorEl={anchorElCart}
+                                    onClose={handleCloseCart}
+                                    dataCart={dataCart}
                                 />
-                            </>
-                        </ClickAwayListener>
+                            )}
+                        </div>
+                    </Link>
+                    {userData && Object.keys(userData).length > 0 ? (
+                        <>
+                            <button aria-describedby={idProfile} variant="contained" onClick={handleClick}>
+                                <AvatarUser />
+                            </button>
+                            <PopperProfile
+                                id={idProfile}
+                                open={open}
+                                anchorEl={anchorEl}
+                                onClose={handleClose}
+                                options={userData.role === 'Admin' ? options : optionsUser}
+                            />
+                        </>
+                    ) : (
+                        <div className="flex items-center space-x-2 font-bold text-[12px] uppercase">
+                            <Link
+                                to={routes.signup}
+                                className="flex items-center space-x-1 hover:text-yellow-400 cursor-pointer"
+                            >
+                                Đăng ký
+                            </Link>
+                            <Divider orientation="vertical" className="!h-4 !border-gray-300 !border-[1px]" />
+                            <Link
+                                to={routes.login}
+                                className="flex items-center space-x-1 hover:text-yellow-400 cursor-pointer"
+                            >
+                                Đăng nhập
+                            </Link>
+                        </div>
                     )}
                 </div>
             </div>
