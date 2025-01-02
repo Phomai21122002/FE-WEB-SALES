@@ -11,7 +11,7 @@ function QuantitySelector({ onUpdateQuantity, quantity, product }) {
     return (
         <div className="flex items-center ring-1 ring-gray-200 rounded-md">
             <button
-                onClick={() => onUpdateQuantity(product.id, Math.max(1, product?.count - 1))}
+                onClick={() => onUpdateQuantity(product.id, Math.max(1, product?.quantity - 1))}
                 className="flex items-center justify-center bg-gray-200 w-[20px] h-full text-gray-700 p-1 rounded-md hover:bg-gray-300 transition-all"
             >
                 <Remove sx={{ fontSize: '16px' }} />
@@ -23,7 +23,7 @@ function QuantitySelector({ onUpdateQuantity, quantity, product }) {
                 className="w-10 text-center text-[12px] border border-gray-300 rounded-md"
             />
             <button
-                onClick={() => onUpdateQuantity(product.id, Math.max(1, product?.count + 1))}
+                onClick={() => onUpdateQuantity(product.id, Math.max(1, product?.quantity + 1))}
                 className="flex items-center justify-center bg-gray-200 w-[20px] h-full text-gray-700 p-1 rounded-md hover:bg-gray-300 transition-all"
             >
                 <Add sx={{ fontSize: '16px' }} />

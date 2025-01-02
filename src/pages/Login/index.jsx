@@ -15,6 +15,7 @@ import { useStorage } from '~/Contexts';
 const Login = memo(() => {
     const navigate = useNavigate();
     const { setUserData, setIsLoggedIn } = useStorage();
+    const [errorPass, setErrorPass] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const { handleSubmit, control } = useForm({
         defaultValues: {
@@ -47,7 +48,9 @@ const Login = memo(() => {
                 navigate(routes.home);
             })
             .catch(() => {
+                setErrorPass('Thông tin người dùng nhập không chính xác. Vui lòng nhập lại!');
                 toast.error('Login not successfully');
+                setIsLoading(false);
             })
             .finally(() => {
                 setIsLoading(false);
@@ -107,6 +110,7 @@ const Login = memo(() => {
                                 Continue
                             </Button>
                         </form>
+                        {errorPass && <p className="mt-2 text-red-500 text-sm">{errorPass}</p>}
 
                         <div className="mt-6 text-[14px] font-bold text-slate-400">Others:</div>
                         {loginLogoList.map((item, index) => (

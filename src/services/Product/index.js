@@ -29,3 +29,31 @@ export const GetProductBySlug = async ({ slug }) => {
         throw error;
     }
 };
+
+export const AddProduct = async (data) => {
+    try {
+        const res = await request.post(`/Products/admin`, data);
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const AdminUpdateProduct = async (data) => {
+    try {
+        const id = data?.id;
+        const res = await request.put(`/Products/admin/${id}`, data);
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const AdminDeleteProduct = async (id) => {
+    try {
+        const res = await request.delete(`/Products/admin/${id}`);
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+};

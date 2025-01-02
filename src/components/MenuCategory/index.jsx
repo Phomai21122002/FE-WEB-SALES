@@ -2,14 +2,27 @@ import { useEffect, useState } from 'react';
 import { ArrowForward, ArrowBack } from '@mui/icons-material';
 import { GetCategories } from '~/services/Category';
 import noImage from '~/assets/images/No-image.png';
+import { Categories } from './Constains';
 
 function MenuCategory() {
     const [categories, setCategories] = useState([]);
 
+    useEffect(() => {
+        const getAllCategory = async () => {
+            try {
+                const res = await GetCategories();
+                const resultRes = Categories(res.data);
+                setCategories(resultRes);
+            } catch (err) {
+                console.error('Error fetching category data: ', err);
+            }
+        };
+        getAllCategory();
+    }, []);
+
     const [currentIndex, setCurrentIndex] = useState(0);
     const itemsToShow = 8;
-
-    const hasNext = currentIndex + itemsToShow < categories.length;
+    const hasNext = currentIndex + itemsToShow < categories?.length;
     const hasPrev = currentIndex > 0;
 
     const nextCategory = () => {
@@ -23,18 +36,6 @@ function MenuCategory() {
             setCurrentIndex((prevIndex) => prevIndex - itemsToShow);
         }
     };
-
-    useEffect(() => {
-        const getAllCategory = async () => {
-            try {
-                const res = await GetCategories();
-                setCategories(res.data);
-            } catch (err) {
-                console.error('Error fetching product data: ', err);
-            }
-        };
-        getAllCategory();
-    }, []);
 
     return (
         <div className="py-4">
@@ -51,10 +52,10 @@ function MenuCategory() {
                 <div className="overflow-hidden">
                     <div className="grid grid-cols-8 gap-4 transition-all duration-500 p-1">
                         {categories.slice(currentIndex, currentIndex + itemsToShow).map((product) => (
-                            <div key={product.id}>
+                            <div key={product?.id}>
                                 <div className="relative w-full h-[100px] overflow-hidden rounded-[100%]">
                                     <img
-                                        src={product.image || noImage}
+                                        src={product.url || noImage}
                                         alt={product.name}
                                         className="w-full h-full object-cover transform transition-all duration-300 group-hover:scale-105"
                                     />
