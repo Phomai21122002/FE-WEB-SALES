@@ -31,6 +31,7 @@ const routes = {
     product: '/product/:slug',
     cart: '/cart',
     order: '/order',
+    search: '/search/:id',
     login: '/login',
     signup: '/signup',
     ...routesAdmin,

@@ -22,7 +22,6 @@ function Cart() {
     }, [dataCart]);
 
     const updateQuantity = (id, newQuantity) => {
-        console.log('updateQuantity');
         setDataCart((prevProducts) =>
             prevProducts.map((product) =>
                 product.id === id
@@ -37,8 +36,8 @@ function Cart() {
             const selectedProductIds = checkProduct
                 .filter((product) => product.check === true)
                 .map((product) => product.id);
-            console.log(selectedProductIds);
             await OrderProduct({ carts: selectedProductIds });
+            setDataCart((prevDataCart) => prevDataCart.filter((product) => !selectedProductIds.includes(product.id)));
             setCheckProduct((prevDataCart) =>
                 prevDataCart.filter((product) => !selectedProductIds.includes(product.id)),
             );
