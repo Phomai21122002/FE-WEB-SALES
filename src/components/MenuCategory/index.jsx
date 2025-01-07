@@ -3,6 +3,8 @@ import { ArrowForward, ArrowBack } from '@mui/icons-material';
 import { GetCategories } from '~/services/Category';
 import noImage from '~/assets/images/No-image.png';
 import { Categories } from './Constains';
+import { Link } from 'react-router-dom';
+import routes from '~/config/routes';
 
 function MenuCategory() {
     const [categories, setCategories] = useState([]);
@@ -51,18 +53,22 @@ function MenuCategory() {
                 )}
                 <div className="overflow-hidden">
                     <div className="grid grid-cols-8 gap-4 transition-all duration-500 p-1">
-                        {categories.slice(currentIndex, currentIndex + itemsToShow).map((product) => (
-                            <div key={product?.id}>
+                        {categories.slice(currentIndex, currentIndex + itemsToShow).map((category) => (
+                            <Link
+                                to={`${routes.search.replace('/:id', '')}/${category.id}`}
+                                key={category?.id}
+                                className="cursor-pointer"
+                            >
                                 <div className="relative w-full h-[100px] overflow-hidden rounded-[100%]">
                                     <img
-                                        src={product.url || noImage}
-                                        alt={product.name}
+                                        src={category.url || noImage}
+                                        alt={category.name}
                                         className="w-full h-full object-cover transform transition-all duration-300 group-hover:scale-105"
                                     />
                                 </div>
-                                <h3 className="text-center mt-2 text-sm font-semibold">{product.name}</h3>
-                                <p className="text-center text-[12px] text-gray-600">{product.description}</p>
-                            </div>
+                                <h3 className="text-center mt-2 text-sm font-semibold">{category.name}</h3>
+                                <p className="text-center text-[12px] text-gray-600">{category.description}</p>
+                            </Link>
                         ))}
                     </div>
                 </div>

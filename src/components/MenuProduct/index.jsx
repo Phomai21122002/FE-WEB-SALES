@@ -6,11 +6,15 @@ import { useStorage } from '~/Contexts';
 import { useNavigate } from 'react-router-dom';
 import routes from '~/config/routes';
 import { AddCart } from '~/services/Cart';
+import { Pagination } from '@mui/material';
 
 function MenuProduct({ title }) {
     const [products, setProducts] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
     const { userData, getDataCartNow } = useStorage();
     const navigate = useNavigate();
+    const productsPerPage = 10;
+
     useEffect(() => {
         const getAllProduct = async () => {
             try {
@@ -23,6 +27,11 @@ function MenuProduct({ title }) {
         };
         getAllProduct();
     }, []);
+
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
+    };
+    const totalPages = Math.ceil(products.length / productsPerPage);
 
     const addToCart = async (productId, quantity) => {
         if (userData && Object.keys(userData).length > 0) {
@@ -49,7 +58,18 @@ function MenuProduct({ title }) {
 
     return (
         <div className="py-4">
-            <div className="flex text-xl text-gray-500 font-medium mb-4 uppercase">{title}</div>
+            <div className="flex items-center justify-between">
+                <div className="flex text-xl text-gray-500 font-medium mb-4 uppercase">{title}</div>
+                <div className="flex items-center">
+                    <Pagination
+                        count={totalPages}
+                        page={currentPage}
+                        onChange={handlePageChange}
+                        color="primary"
+                        size="small"
+                    />
+                </div>
+            </div>
             <div className="relative">
                 <div className="overflow-hidden">
                     <div className="grid grid-cols-5 gap-2 transition-all duration-500 p-1">

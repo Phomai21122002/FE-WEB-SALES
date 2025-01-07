@@ -18,6 +18,7 @@ import {
     ProductDetail,
     ProfileAdmin,
     ProfileUser,
+    Search,
     SignUp,
     UpdateCategory,
     UpdateProduct,
@@ -34,6 +35,7 @@ const publicRoutes = [
     { path: config.routes.cart, component: Cart },
     { path: config.routes.order, component: Order },
     { path: config.routes.product, component: ProductDetail },
+    { path: config.routes.search, component: Search },
 ];
 
 const adminRoutes = [
